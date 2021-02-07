@@ -1,0 +1,608 @@
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+
+
+using namespace std;
+
+
+
+
+
+struct Weapon
+{
+	Weapon(int dmg, string snd, short nu, string name) : damage(dmg), sound(snd), numofUses(nu), name(name) {}
+	int damage;
+
+	string sound;
+	short numofUses;
+	string name;
+};
+	Weapon sword(20, "SLASH!", 5, "Gucci Sword");
+	Weapon wand(15, "WHOOSH!", 5, "Tom Ford Wand");
+	Weapon armour(0, "DEFENSE!", 5, "Ferragamo Armour");
+	Weapon potion(0, "HEAL! HALLELUJER!", 5, "Ace of Spades Potion");
+	Weapon shield(7, "BLOCK!", 5, "Louis Vuitton Shield");
+	Weapon none(-1, "EQUIP YOUR ITEM", 0, "No Item Eqiupped");
+
+
+	struct Character {
+		int sword;
+		int armour;
+		int potion;
+		int wand;
+		int shield;
+		int health;
+		int power;
+		int magic;
+
+
+
+		Weapon equip_sword;
+		Weapon equip_armour;
+		Weapon equip_potion;
+		Weapon equip_wand;
+		Weapon equip_shield;
+		Character() : equip_sword(none), equip_armour(none), equip_potion(none), equip_wand(none), equip_shield(none), 
+			sword(0), armour(0), potion(0), wand(0), shield(0){};
+	};
+	Character player;
+	Character myChara;
+	 
+	
+	class Player
+	{
+		string playerClass;
+		int level;
+		int attack;
+		int defence;
+		int specialAttack;
+		int specialDefence;
+		int speed;
+
+
+	public:
+
+		int health;
+		int mana;
+
+
+		Player(int choice)
+		{
+			if (choice == 1)
+			{
+				playerClass = "Swordsman";
+				level = 5;
+				attack = 100;
+				defence = 100;
+				specialAttack = 30;
+				specialDefence = 30;
+				speed = 40;
+
+
+			}
+			if (choice == 2)
+			{
+				playerClass = "Ninja";
+				level = 5;
+				attack = 70;
+				defence = 50;
+				specialAttack = 60;
+				specialDefence = 60;
+				speed = 100;
+
+
+			}
+			if (choice == 3)
+			{
+				playerClass = "Spellcaster";
+				level = 5;
+				attack = 30;
+				defence = 30;
+				specialAttack = 100;
+				specialDefence = 100;
+				speed = 50;
+
+
+
+			}
+
+		}
+		
+		string printClass()
+		{
+			return playerClass;
+
+		}
+
+
+	};
+	
+
+
+
+
+
+
+
+
+
+class inventory
+{
+private: 
+	int weaponStrike[5];
+	int weaponCount[5];
+	int weaponCost[5];
+	
+	
+
+public:
+	int locator;
+	void retrieve();
+	void init();
+	void store();
+	void equipConfirm();
+	int weaponEquip[5];
+		
+
+}inv1;
+
+void setItemNumber(int &temp)
+{
+	do
+	{
+		cout << "\nPlease enter item number(if done, press '0'):";
+		cin >> temp;
+	} 
+	while (temp < 0);
+}
+
+void setCount(int &temp)
+{
+	do
+	{
+		cout << "\nEnter amount of weapons: ";
+		cin >> temp;
+
+
+	} while (temp < 0);
+}
+
+
+
+
+
+void inventory::init()
+{
+	int counter = 0;
+	while (counter < 5)
+	{
+		weaponStrike[counter] = 0;
+		weaponCount[counter] = 0;
+		weaponCost[counter] = 0;
+		counter++;
+		locator = counter;
+
+	}
+
+}
+
+
+
+void inventory::store()
+{
+	
+store:
+	
+	int equip;
+	int counter = 0;
+	int temp = 0;
+	double price = 0;
+	cout << "\nYour Personal Inventory." << endl;
+	cout << "When finished, enter '0' to enter into store " << endl;
+	cout << "\nPlease equip your weapon. " << endl;
+	cout << "You cannot equip the same weapon more than once. Press the cooresponding number to equip items between 1-5." << endl;
+	cout << "1: Sword " << endl;
+	cout << "2. Armour " << endl;
+	cout << "3. Potion " << endl;
+	cout << "4. Wand " << endl;
+	cout << "5. Shield " << endl;
+	cout << "0. Go to Store " << endl;
+	cin >> equip;
+	switch (equip)
+		case 1:
+			if  (player.sword == 0) {
+				system("cls");
+				cout << "You don't have this weapon. Please go to the store to buy item." << endl;
+				system("pause");
+				goto store;
+			}
+			else if (player.equip_sword.damage != -1) {
+				system("cls");
+				cout << "You cannot equip the same item twice. Please choose different item." << endl;
+				system("pause");
+				goto store;
+			}
+			else {
+				system("cls");
+				player.equip_sword = sword;
+				cout << "Item Equipped - Gucci Sword (SLASH!)." << endl;
+				system("pause");
+				goto store;
+			}
+		switch(equip)
+		case 2:
+			if (player.armour == 0) {
+				system("cls");
+				cout << "You don't have this weapon. Please go to the store to buy item." << endl;
+				system("pause");
+				goto store;
+			}
+			else if (player.equip_armour.damage != -1) {
+				system("cls");
+				cout << "You cannot equip the same item twice. Please choose different item." << endl;
+				system("pause");
+				goto store;
+			}
+
+			else {
+				system("cls");
+				player.equip_armour = armour;
+				cout << "Item Equipped - Ferragamo Armour.(DEFENSE!) " << endl;
+				system("pause");
+				goto store;
+			}
+		switch(equip)
+		case 3:
+			if  (player.potion == 0) {
+				system("cls");
+				cout << "You don't have this item. Please go to the store to buy item." << endl;
+				system("pause");
+				goto store;
+			}
+			else if (player.equip_potion.damage != -1) {
+				system("cls");
+				cout << "You cannot equip the same item twice. Please choose a different item." << endl;
+				system("pause");
+				goto store;
+			}
+
+			else {
+				system("cls");
+				player.equip_potion = potion;
+				cout << "Item Equipped - Ace of Spades Potion.(HEAL! HALLELUJER!) " << endl;
+				system("pause");
+				goto store;
+			}
+		switch(equip)
+		case 4:
+			if (player.wand == 0) {
+				system("cls");
+				cout << "You don't have this item. Please go to the store to buy item." << endl;
+				system("pause");
+				goto store;
+			}
+			else if (player.equip_wand.damage != -1) {
+				system("cls");
+				cout << "You cannot equip the same item twice. Please choose a different item." << endl;
+				system("pause");
+				goto store;
+			}
+			else {
+				system("cls");
+				player.equip_wand = wand;
+				cout << "Item Equipped - Tom Ford Wand.(WHOOSH!)" << endl;
+				system("pause");
+				goto store;
+			}
+		switch(equip)
+		case 5:
+			if (player.shield == 0) {
+				system("cls");
+				cout << "You don't have this item. Please go to the store to buy item." << endl;
+				system("pause");
+				goto store;
+			}
+			else if (player.equip_shield.damage != -1) {
+				system("cls");
+				cout << "You cannot equip the same item twice. Please choose different item." << endl;
+				system("pause");
+				goto store;
+			}
+			else {
+				system("cls");
+				player.equip_shield = shield;
+				cout << "Item Equipped - Louis Vuitton Shield.(BLOCK!)" << endl;
+				system("pause");
+				goto store;
+			}
+			
+			
+				
+
+
+
+				
+
+	
+	
+	while (counter < locator)
+	{
+		setItemNumber(temp);
+		if (temp == 0)
+		{
+			locator = counter;
+			return;
+		}
+		weaponStrike[counter] = equip;
+		weaponEquip[counter] = 1;
+		setCount(temp);
+		weaponCount[counter] = equip;
+		counter++;
+	}
+}
+
+void inventory::retrieve()
+{
+	int counter = 0;
+	double total = 0;
+	cout << "Weapon, Amount, Price" << endl;
+	cout << "______________________________" << endl;
+	while (counter < locator)
+	{
+		cout << weaponStrike[counter];
+		cout << "\t\t\t" << weaponCount[counter];
+		cout << "\t\t\t" << weaponCost[counter] << endl;
+		total = weaponCount[counter] * weaponCost[counter] + total;
+		counter++;
+
+
+
+	}
+
+	cout << "Total Inventory valued at: $ " << total << endl;
+	system("pause");
+	
+}
+
+
+
+
+
+
+int main()
+{
+	
+
+	
+
+
+
+
+	int choice = 0;
+	int gold = 500;
+	int sword = 0;
+	int armour = 0;
+	int potion = 0;
+	int wand = 0;
+	int shield = 0;
+	
+
+
+	system("cls");
+	cout << "Welcome To Nick's Game! " << " You have the honour of playing the game. " << endl;
+	cout << "As a gift, have some gold. " << endl;
+	cout << "Item added: " << gold << " Gold " << endl;
+	cout << "Plus, i want to you choose your class." << endl;
+	cout << "Choose your character class. \n[1] Swordsman [2] Ninja [3] Spellcaster: ";
+	cin >> choice;
+
+	while (!cin >> choice || choice > 3 || choice < 1) {
+		cout << "Not a valid choice. \nChoose your character class. \n[1] Swordsman [2] Ninja [3] Spellcaster: ";
+		cin >> choice;
+	}
+
+
+	system("pause");
+
+
+
+
+
+start:
+	system("cls");
+	cout << "\nWhat would you like to do? Press any of the corresponding numbers to choose your selection. " << endl;
+	cout << "1. Shop " << endl;
+	cout << "2. Check Gold" << endl;
+	cout << "3. Go to inventory" << endl;
+	cout << "4. Check players stats" << endl;
+	
+	cin >> choice;
+	while (choice != 0) {
+		switch (choice)
+		{
+		case 3:
+			system("cls");
+			inv1.store();
+			system("pause");
+			break;
+		shop:
+		case 1:
+			system("cls");
+			cout << "\nWelcome to Designer Weapons: Home of weapons created by designer Blacksmiths!" << endl;
+			cout << "1.  Buy" << endl;
+			cout << "2.  Check Gold" << endl;
+			cout << "3.  Exit" << endl;
+			cin >> choice;
+
+			switch (choice) {
+			buy:
+			case 1:
+				system("cls");
+				cout << "Shop" << endl;
+				cout << "\nWhat would you like to buy?" << endl;
+				cout << "\n1. Gucci Sword: 150 Gold. Strength: 20 points, Magic: 5 points." << endl;
+				cout << "2. Ferragamo Armour: 150 Gold. Defence: 20 points, Magic: 7 points." << endl;
+				cout << "3. Ace of Spades Potion: 150 Gold. Health Restore: 50 Points." << endl;
+				cout << "4. Tom Ford Wand: 150 Gold. Strength: 0 points, Magic: 15 points." << endl;
+				cout << "5. Louis Vuitton Shield: 150 Gold. Strength: 7, Defence: 15 Points, Magic: 5 Points." << endl;
+				cout << "0. To Exit Shop" << endl;
+				cin >> choice;
+				switch (choice) {
+
+				case 1:
+					if (gold < 150) {
+						system("cls");
+						cout << "You don't have enough gold." << endl;
+						system("pause");
+						goto buy;
+					}
+					if (player.sword > 0)
+					{
+						system("cls");
+						cout << "You cannot buy the same weapon twice." << endl;
+						system("pause");
+						goto buy;
+					}
+					else {
+						system("cls");
+						gold = gold - 150;
+						player.sword = player.sword + 1;
+						cout << "Item added - Gucci Sword." << endl;
+						system("pause");
+						goto buy;
+					}
+					
+				case 2:
+					if (gold < 150) {
+						system("cls");
+						cout << "You don't have enough gold." << endl;
+						system("pause");
+						goto buy;
+					}
+					if (player.armour > 0)
+					{
+						system("cls");
+						cout << "You cannot buy the same weapon twice." << endl;
+						system("pause");
+						goto buy;
+					}
+					else {
+						system("cls");
+						gold = gold - 150;
+						player.armour = player.armour + 1;
+						cout << "Item added - Ferragomo Armour." << endl;
+						system("pause");
+						goto buy;
+
+				case 3:
+					if (gold < 150) {
+						system("cls");
+						cout << "You don't have enough gold." << endl;
+						system("pause");
+						goto buy;
+					}
+					if (player.potion > 0)
+					{
+						system("cls");
+						cout << "You cannot buy the same weapon twice." << endl;
+						system("pause");
+						goto buy;
+					}
+					else {
+						system("cls");
+						gold = gold - 150;
+						player.potion = player.potion + 1;
+						cout << "Item added - Ace of Spades Potion" << endl;
+						system("pause");
+						goto buy;
+					}
+				case 4:
+					if (gold < 150) {
+						system("cls");
+						cout << "You don't have enough gold." << endl;
+						system("pause");
+						goto buy;
+					}
+					if (player.wand > 0)
+					{
+						system("cls");
+						cout << "You cannot buy the same weapon twice." << endl;
+						system("pause");
+						goto buy;
+					}
+					else {
+						system("cls");
+						gold = gold - 150;
+						player.wand = player.wand + 1;
+						cout << "Item added - Tom Ford Wand" << endl;
+						system("pause");
+						goto buy;
+					}
+				case 5:
+					if (gold < 150) {
+						system("cls");
+						cout << "You don't have enough gold." << endl;
+						system("pause");
+						goto buy;
+					}
+					if (player.shield > 0)
+					{
+						system("cls");
+						cout << "You cannot buy the same weapon twice." << endl;
+						system("pause");
+						goto buy;
+					}
+					else {
+						system("cls");
+						gold = gold - 150;
+						player.shield = player.shield + 1;
+						cout << "Item added - Louis Vuitton Shield" << endl;
+						system("pause");
+						goto buy;
+					}
+
+				}
+
+				
+			}
+			case 2:
+				system("cls");
+				cout << "Current Gold: " << gold << endl;
+				system("pause");
+				goto shop;
+
+
+			}
+
+			case 2:
+				system("cls");
+				cout << "Current Gold: " << gold << endl;
+				system("pause");
+				goto start;
+				break;
+
+		}
+		
+
+
+
+
+
+		cout << "What would you like to do? " << endl;
+		cout << "1. Shop " << endl;
+		cout << "2. Check Gold" << endl;
+		cout << "3. Go to inventory" << endl;
+		cout << "4. Check your stats" << endl;
+		cin >> choice;
+
+
+	}
+	inv1.init();
+	inv1.store();
+	inv1.retrieve();
+
+
+
+}
